@@ -49,7 +49,6 @@ public class GetTriviaAsync extends AsyncTask<Void, Void, ArrayList<Question>> {
             e.printStackTrace();
         }
 
-        // TODO Parse JSON
         try {
             JSONObject response = new JSONObject(stringBuilder.toString());
             JSONArray responseQuestions = response.getJSONArray("questions");
