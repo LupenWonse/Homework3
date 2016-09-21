@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class TriviaActivity extends AppCompatActivity implements GetImageAsync.IImageDisplay {
 
     public static final String CORRECT_ANSWERS_KEY = "CORRECT";
+    public static final String QUESTIONS_COUNT_KEY = "COUNT_OF_QUESTIONS";
 
     private int currentQuestion;
     private int correctQuestions = 0;
@@ -106,6 +107,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         } else {
             Intent intent = new Intent(this, StatsActivity.class);
             intent.putExtra(CORRECT_ANSWERS_KEY,correctQuestions);
+            intent.putExtra(QUESTIONS_COUNT_KEY,questionsList.size());
             startActivity(intent);
         }
     }
