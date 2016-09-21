@@ -8,12 +8,16 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TriviaActivity extends AppCompatActivity {
 
     private ArrayList<Question> questionsList;
+
+    private TextView textQuestionNumber;
+    private TextView textQuestionText;
 
     private RadioGroup choicesRadioGroup;
     @Override
@@ -23,12 +27,23 @@ public class TriviaActivity extends AppCompatActivity {
 
         choicesRadioGroup = (RadioGroup) findViewById(R.id.radioGroupChoices);
 
+        textQuestionNumber = (TextView) findViewById(R.id.textQuestionNumber);
+        textQuestionText = (TextView) findViewById(R.id.textQuestionText);
+
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
+            showQuestion(0);
         } else
         {
             // TODO TOAST
         }
+    }
+
+    private void showQuestion(int i) {
+        Question question = questionsList.get(i);
+
+        textQuestionNumber.setText(Integer.toString(question.id + 1));
+        textQuestionText.setText(question.text);
     }
 
     private void addRadioButton(String radioButtonText){
