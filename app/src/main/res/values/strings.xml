@@ -9,4 +9,8 @@
     <string name="buttonQuitLabel">Quit</string>
     <string name="buttonNext">Next</string>
     <string name="textProgressLoadingImageLabel"> Loading Image</string>
+    <string name="textStatsTitle">Trivia Stats</string>
+    <string name="textCorrectAnswersLabel">Correct Answers</string>
+    <string name="textTryAgain">Try again and see if you can get all the correct answers!</string>
+    <string name="buttonTryAgainLabel">Try Again</string>
 </resources>
