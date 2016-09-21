@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -21,6 +23,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     private TextView textQuestionNumber;
     private TextView textQuestionText;
     private ImageView imageQuestionImage;
+    private ProgressBar progressImageLoading;
+    private TextView textImageLoadingLabel;
 
     private RadioGroup choicesRadioGroup;
     @Override
@@ -29,10 +33,11 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         setContentView(R.layout.activity_trivia);
 
         choicesRadioGroup = (RadioGroup) findViewById(R.id.radioGroupChoices);
-
         textQuestionNumber = (TextView) findViewById(R.id.textQuestionNumber);
         textQuestionText = (TextView) findViewById(R.id.textQuestionText);
         imageQuestionImage = (ImageView) findViewById(R.id.imageQuestionImage);
+        progressImageLoading = (ProgressBar) findViewById(R.id.progressImageLoading);
+        textImageLoadingLabel = (TextView) findViewById(R.id.textImageLoading);
 
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
@@ -44,6 +49,12 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     }
 
     private void showQuestion(int i) {
+
+        imageQuestionImage.setImageBitmap(null);
+        progressImageLoading.setVisibility(View.VISIBLE);
+        textImageLoadingLabel.setVisibility(View.VISIBLE);
+
+
         Question question = questionsList.get(i);
 
         textQuestionNumber.setText(Integer.toString(question.id + 1));
@@ -55,10 +66,11 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         }
 
         if (question.image != null){
-            // TODO Get the image with ASync Task
             new GetImageAsync(this).execute(question.image);
         } else {
-            // TODO Load a default image
+            imageQuestionImage.setImageResource(R.drawable.Question_mark);
+            progressImageLoading.setVisibility(View.INVISIBLE);
+            textImageLoadingLabel.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -71,5 +83,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     @Override
     public void setImage(Bitmap image) {
         imageQuestionImage.setImageBitmap(image);
+        progressImageLoading.setVisibility(View.INVISIBLE);
+        textImageLoadingLabel.setVisibility(View.INVISIBLE);
     }
 }

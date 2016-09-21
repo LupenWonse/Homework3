@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/textProgressLoadingImageLabel"
-        android:id="@+id/textView2"
+        android:id="@+id/textImageLoading"
         android:layout_below="@+id/progressImageLoading"
         android:layout_centerHorizontal="true" />
 
