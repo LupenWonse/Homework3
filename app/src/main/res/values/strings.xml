@@ -6,4 +6,7 @@
     <string name="textLoading">Loading Trivia</string>
     <string name="textReady">Trivia Ready</string>
     <string name="toastNoConnection">No Internet Connection</string>
+    <string name="buttonQuitLabel">Quit</string>
+    <string name="buttonNext">Next</string>
+    <string name="textProgressLoadingImageLabel"> Loading Image</string>
 </resources>
