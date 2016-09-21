@@ -46,8 +46,15 @@ public class TriviaActivity extends AppCompatActivity {
         textQuestionNumber.setText(Integer.toString(question.id + 1));
         textQuestionText.setText(question.text);
 
+        // TODO double check if our layout is ok when we have many choices
         for (String choice: question.choices) {
             addRadioButton(choice);
+        }
+
+        if (question.image != null){
+            // TODO Get the image with ASync Task
+        } else {
+            // TODO Load a default image
         }
     }
 
