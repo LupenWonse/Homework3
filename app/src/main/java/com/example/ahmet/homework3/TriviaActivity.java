@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TriviaActivity extends AppCompatActivity implements GetImageAsync.IImageDisplay {
+
+    private int currentQuestion;
 
     private ArrayList<Question> questionsList;
 
@@ -56,11 +59,12 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
 
 
         Question question = questionsList.get(i);
-
+        Log.d("test",question.choices.toString());
         textQuestionNumber.setText(Integer.toString(question.id + 1));
         textQuestionText.setText(question.text);
 
         // TODO double check if our layout is ok when we have many choices
+        choicesRadioGroup.removeAllViews();
         for (String choice: question.choices) {
             addRadioButton(choice);
         }
@@ -85,5 +89,12 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         imageQuestionImage.setImageBitmap(image);
         progressImageLoading.setVisibility(View.INVISIBLE);
         textImageLoadingLabel.setVisibility(View.INVISIBLE);
+    }
+
+    public void nextQuestion(View view) {
+        currentQuestion++;
+        if (currentQuestion < questionsList.size()) {
+            showQuestion(currentQuestion);
+        }
     }
 }
