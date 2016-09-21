@@ -1,9 +1,11 @@
 package com.example.ahmet.homework3;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,12 +14,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TriviaActivity extends AppCompatActivity {
+public class TriviaActivity extends AppCompatActivity implements GetImageAsync.IImageDisplay {
 
     private ArrayList<Question> questionsList;
 
     private TextView textQuestionNumber;
     private TextView textQuestionText;
+    private ImageView imageQuestionImage;
 
     private RadioGroup choicesRadioGroup;
     @Override
@@ -29,7 +32,7 @@ public class TriviaActivity extends AppCompatActivity {
 
         textQuestionNumber = (TextView) findViewById(R.id.textQuestionNumber);
         textQuestionText = (TextView) findViewById(R.id.textQuestionText);
-
+        imageQuestionImage = (ImageView) findViewById(R.id.imageQuestionImage);
 
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
@@ -53,6 +56,7 @@ public class TriviaActivity extends AppCompatActivity {
 
         if (question.image != null){
             // TODO Get the image with ASync Task
+            new GetImageAsync(this).execute(question.image);
         } else {
             // TODO Load a default image
         }
@@ -62,5 +66,10 @@ public class TriviaActivity extends AppCompatActivity {
         RadioButton radioButton = new RadioButton(this);
         radioButton.setText(radioButtonText);
         choicesRadioGroup.addView(radioButton,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
+    @Override
+    public void setImage(Bitmap image) {
+        imageQuestionImage.setImageBitmap(image);
     }
 }
