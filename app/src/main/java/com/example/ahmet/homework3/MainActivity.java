@@ -55,4 +55,8 @@ public class MainActivity extends AppCompatActivity implements TriviaMainActivit
             ((TextView) findViewById(R.id.textTriviaStatus)).setText(getString(R.string.textReady));
         }
     }
+
+    public void endActivity(View view){
+        finish();
+    }
 }
