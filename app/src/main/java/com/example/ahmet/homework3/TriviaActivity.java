@@ -68,7 +68,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         if (question.image != null){
             new GetImageAsync(this).execute(question.image);
         } else {
-            imageQuestionImage.setImageResource(R.drawable.Question_mark);
+            imageQuestionImage.setImageResource(R.drawable.question_mark);
             progressImageLoading.setVisibility(View.INVISIBLE);
             textImageLoadingLabel.setVisibility(View.INVISIBLE);
         }
