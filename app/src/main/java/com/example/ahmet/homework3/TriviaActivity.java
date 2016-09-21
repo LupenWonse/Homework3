@@ -2,6 +2,7 @@ package com.example.ahmet.homework3;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
 
     public static final String CORRECT_ANSWERS_KEY = "CORRECT";
     public static final String QUESTIONS_COUNT_KEY = "COUNT_OF_QUESTIONS";
+
+    GetImageAsync imageRetirever;
 
     private int currentQuestion;
     private int correctQuestions = 0;
@@ -49,6 +52,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         progressImageLoading = (ProgressBar) findViewById(R.id.progressImageLoading);
         textImageLoadingLabel = (TextView) findViewById(R.id.textImageLoading);
         textTimeLeft = (TextView) findViewById(R.id.textTimeLeft);
+
+        imageRetirever = new GetImageAsync(this);
 
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
@@ -94,7 +99,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         }
 
         if (question.image != null){
-            new GetImageAsync(this).execute(question.image);
+            imageRetirever = new GetImageAsync(this);
+            imageRetirever.execute(question.image);
         } else {
             imageQuestionImage.setImageResource(R.drawable.question_mark);
             progressImageLoading.setVisibility(View.INVISIBLE);
@@ -116,6 +122,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     }
 
     public void nextQuestion(View view) {
+        imageRetirever.cancel(false);
+
         if(checkAnswer()) {
             correctQuestions++;
         }
