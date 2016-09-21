@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class TriviaActivity extends AppCompatActivity implements GetImageAsync.IImageDisplay {
 
     private int currentQuestion;
+    private int correctQuestions = 0;
 
     private ArrayList<Question> questionsList;
 
@@ -92,9 +93,23 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     }
 
     public void nextQuestion(View view) {
-        currentQuestion++;
-        if (currentQuestion < questionsList.size()) {
+        if(checkAnswer()) {
+            correctQuestions++;
+        }
+
+        if (currentQuestion < questionsList.size() - 1) {
+            currentQuestion++;
             showQuestion(currentQuestion);
+        }
+    }
+
+    public boolean checkAnswer(){
+        int givenAnswer = choicesRadioGroup.indexOfChild(choicesRadioGroup.findViewById(choicesRadioGroup.getCheckedRadioButtonId())) + 1;
+
+        if (questionsList.get(currentQuestion).answer == givenAnswer) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
