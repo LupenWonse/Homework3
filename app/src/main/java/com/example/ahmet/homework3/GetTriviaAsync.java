@@ -22,6 +22,11 @@ public class GetTriviaAsync extends AsyncTask<Void, Void, ArrayList<Question>> {
 
     private static final String triviaUrlString =
             "http://dev.theappsdr.com/apis/trivia_json/index.php";
+    public TriviaMainActivity mainActivity;
+
+    public GetTriviaAsync(TriviaMainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
     @Override
     protected ArrayList<Question> doInBackground(Void... params) {
@@ -74,4 +79,13 @@ public class GetTriviaAsync extends AsyncTask<Void, Void, ArrayList<Question>> {
         }
         return questions;
     }
+
+    @Override
+    protected void onPostExecute(ArrayList<Question> questions) {
+        mainActivity.setTrivia(questions);
+    }
+}
+
+interface TriviaMainActivity {
+    void setTrivia(ArrayList<Question> questions);
 }
