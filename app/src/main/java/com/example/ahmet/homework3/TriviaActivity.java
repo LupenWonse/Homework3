@@ -1,5 +1,6 @@
 package com.example.ahmet.homework3;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TriviaActivity extends AppCompatActivity implements GetImageAsync.IImageDisplay {
+
+    public static final String CORRECT_ANSWERS_KEY = "CORRECT";
 
     private int currentQuestion;
     private int correctQuestions = 0;
@@ -100,6 +103,10 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         if (currentQuestion < questionsList.size() - 1) {
             currentQuestion++;
             showQuestion(currentQuestion);
+        } else {
+            Intent intent = new Intent(this, StatsActivity.class);
+            intent.putExtra(CORRECT_ANSWERS_KEY,correctQuestions);
+            startActivity(intent);
         }
     }
 
