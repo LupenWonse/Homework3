@@ -63,6 +63,7 @@ public class GetTriviaAsync extends AsyncTask<Void, Void, ArrayList<Question>> {
                 questionText = currentQuestion.getString("text");
                 questionAnswer = currentQuestion.getJSONObject("choices").getInt("answer");
                 JSONArray choices = currentQuestion.getJSONObject("choices").getJSONArray("choice");
+                questionChoices = new ArrayList<>();
                 for (int index = 0; index < choices.length(); ++index){
                     questionChoices.add(choices.getString(index));
                 }
