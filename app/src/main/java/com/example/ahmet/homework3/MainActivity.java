@@ -1,5 +1,8 @@
 package com.example.ahmet.homework3;
 
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +23,23 @@ public class MainActivity extends AppCompatActivity implements TriviaMainActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new GetTriviaAsync(this).execute();
+
+        if(isOnline()) {
+            new GetTriviaAsync(this).execute();
+        } else {
+            Toast.makeText(this,getString(R.string.toastNoConnection),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnected()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

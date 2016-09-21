@@ -5,4 +5,5 @@
     <string name="textWelcome">Welcome to Trivia App</string>
     <string name="textLoading">Loading Trivia</string>
     <string name="textReady">Trivia Ready</string>
+    <string name="toastNoConnection">No Internet Connection</string>
 </resources>
