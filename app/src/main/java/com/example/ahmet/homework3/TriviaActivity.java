@@ -2,6 +2,7 @@ package com.example.ahmet.homework3;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     private ImageView imageQuestionImage;
     private ProgressBar progressImageLoading;
     private TextView textImageLoadingLabel;
+    private TextView textTimeLeft;
 
     private RadioGroup choicesRadioGroup;
     @Override
@@ -46,14 +48,32 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         imageQuestionImage = (ImageView) findViewById(R.id.imageQuestionImage);
         progressImageLoading = (ProgressBar) findViewById(R.id.progressImageLoading);
         textImageLoadingLabel = (TextView) findViewById(R.id.textImageLoading);
+        textTimeLeft = (TextView) findViewById(R.id.textTimeLeft);
 
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
             showQuestion(0);
+            startCountdown();
         } else
         {
             // TODO TOAST
         }
+    }
+
+    private void startCountdown(){
+        CountDownTimer timer = new CountDownTimer(120 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textTimeLeft.setText(getString(R.string.textTimeLeft) + " "
+                        + Long.toString(millisUntilFinished/1000) + " "
+                        + getString(R.string.textSeconds));
+            }
+
+            @Override
+            public void onFinish() {
+                showResults();
+            }
+        }.start();
     }
 
     private void showQuestion(int i) {
@@ -64,8 +84,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
 
 
         Question question = questionsList.get(i);
-        Log.d("test",question.choices.toString());
-        textQuestionNumber.setText(Integer.toString(question.id + 1));
+        textQuestionNumber.setText("Q" + Integer.toString(question.id + 1));
         textQuestionText.setText(question.text);
 
         // TODO double check if our layout is ok when we have many choices
@@ -105,11 +124,15 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
             currentQuestion++;
             showQuestion(currentQuestion);
         } else {
-            Intent intent = new Intent(this, StatsActivity.class);
-            intent.putExtra(CORRECT_ANSWERS_KEY,correctQuestions);
-            intent.putExtra(QUESTIONS_COUNT_KEY,questionsList.size());
-            startActivity(intent);
+            showResults();
         }
+    }
+
+    private void showResults() {
+        Intent intent = new Intent(this, StatsActivity.class);
+        intent.putExtra(CORRECT_ANSWERS_KEY,correctQuestions);
+        intent.putExtra(QUESTIONS_COUNT_KEY,questionsList.size());
+        startActivity(intent);
     }
 
     public boolean checkAnswer(){

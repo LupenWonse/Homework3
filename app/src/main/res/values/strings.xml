@@ -13,4 +13,6 @@
     <string name="textCorrectAnswersLabel">Correct Answers</string>
     <string name="textTryAgain">Try again and see if you can get all the correct answers!</string>
     <string name="buttonTryAgainLabel">Try Again</string>
+    <string name="textTimeLeft">Time Left:         </string>
+    <string name="textSeconds"> seconds</string>
 </resources>
