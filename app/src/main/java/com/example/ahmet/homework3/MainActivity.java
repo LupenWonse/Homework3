@@ -1,5 +1,6 @@
 package com.example.ahmet.homework3;
 
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -18,6 +19,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements TriviaMainActivity {
+    public static final String QUESTION_ARRAY_KEY = "QUESTIONS";
+    private ArrayList<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,17 @@ public class MainActivity extends AppCompatActivity implements TriviaMainActivit
             ((ProgressBar) findViewById(R.id.progressTriviaLoading)).setVisibility(View.INVISIBLE);
             ((ImageView) findViewById(R.id.imageTriviaLogo)).setVisibility(View.VISIBLE);
             ((TextView) findViewById(R.id.textTriviaStatus)).setText(getString(R.string.textReady));
+            this.questions = questions;
         }
     }
 
     public void endActivity(View view){
         finish();
+    }
+
+    public void startTrivia(View view){
+        Intent triviaIntent = new Intent(this,TriviaActivity.class);
+        triviaIntent.putExtra(QUESTION_ARRAY_KEY,questions);
+        startActivity(triviaIntent);
     }
 }

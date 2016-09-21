@@ -9,7 +9,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 public class TriviaActivity extends AppCompatActivity {
+
+    private ArrayList<Question> questionsList;
 
     private RadioGroup choicesRadioGroup;
     @Override
@@ -18,6 +22,13 @@ public class TriviaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trivia);
 
         choicesRadioGroup = (RadioGroup) findViewById(R.id.radioGroupChoices);
+
+        if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
+            questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
+        } else
+        {
+            // TODO TOAST
+        }
     }
 
     private void addRadioButton(String radioButtonText){
