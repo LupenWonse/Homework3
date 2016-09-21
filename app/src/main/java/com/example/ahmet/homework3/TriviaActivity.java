@@ -30,6 +30,7 @@ public class TriviaActivity extends AppCompatActivity {
         textQuestionNumber = (TextView) findViewById(R.id.textQuestionNumber);
         textQuestionText = (TextView) findViewById(R.id.textQuestionText);
 
+
         if(getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY) != null){
             questionsList = (ArrayList<Question>) getIntent().getSerializableExtra(MainActivity.QUESTION_ARRAY_KEY);
             showQuestion(0);
@@ -44,6 +45,10 @@ public class TriviaActivity extends AppCompatActivity {
 
         textQuestionNumber.setText(Integer.toString(question.id + 1));
         textQuestionText.setText(question.text);
+
+        for (String choice: question.choices) {
+            addRadioButton(choice);
+        }
     }
 
     private void addRadioButton(String radioButtonText){
