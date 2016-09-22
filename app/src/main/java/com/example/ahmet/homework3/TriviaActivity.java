@@ -67,10 +67,15 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         }
     }
 
-    private void startCountdown(){
+    @Override
+    protected void onStop() {
+        super.onStop();
         if(timer != null){
             timer.cancel();
         }
+    }
+
+    private void startCountdown(){
         timer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
