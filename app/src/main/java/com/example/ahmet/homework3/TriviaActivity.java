@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
             startCountdown();
         } else
         {
-            // TODO TOAST
+            Toast.makeText(this,"No Questions found in the database",Toast.LENGTH_SHORT);
         }
     }
 
@@ -102,7 +103,6 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         textQuestionNumber.setText("Q" + Integer.toString(question.id + 1));
         textQuestionText.setText(question.text);
 
-        // TODO double check if our layout is ok when we have many choices
         choicesRadioGroup.removeAllViews();
         for (String choice: question.choices) {
             addRadioButton(choice);
