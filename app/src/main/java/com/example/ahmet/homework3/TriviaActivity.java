@@ -39,6 +39,8 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     private TextView textImageLoadingLabel;
     private TextView textTimeLeft;
 
+    private CountDownTimer timer;
+
     private RadioGroup choicesRadioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,10 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     }
 
     private void startCountdown(){
-        CountDownTimer timer = new CountDownTimer(120 * 1000, 1000) {
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 textTimeLeft.setText(getString(R.string.textTimeLeft) + " "
@@ -140,7 +145,14 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         Intent intent = new Intent(this, StatsActivity.class);
         intent.putExtra(CORRECT_ANSWERS_KEY,correctQuestions);
         intent.putExtra(QUESTIONS_COUNT_KEY,questionsList.size());
-        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        currentQuestion = 0;
+        showQuestion(0);
+        startCountdown();
     }
 
     public boolean checkAnswer(){
@@ -151,5 +163,9 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
         } else {
             return false;
         }
+    }
+
+    public void quit(View view){
+        finish();
     }
 }

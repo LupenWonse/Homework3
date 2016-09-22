@@ -1,8 +1,10 @@
 package com.example.ahmet.homework3;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,5 +36,16 @@ public class StatsActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void quit(View view){
+        Intent restartIntent = new Intent(this,MainActivity.class);
+        restartIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        restartIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(restartIntent);
+    }
+
+    public void tryAgain(View view){
+        finish();
     }
 }
