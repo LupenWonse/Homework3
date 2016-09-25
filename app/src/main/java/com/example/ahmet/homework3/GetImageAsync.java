@@ -1,3 +1,11 @@
+/*
+ Homwork 4
+ Get Async Image Thread
+ Akarsh Gupta     - 800969888
+ Ahmet Gencoglu   - 800982227
+*/
+
+
 package com.example.ahmet.homework3;
 
 import android.graphics.Bitmap;
@@ -9,9 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Ahmet on 21.09.2016.
- */
+
 public class GetImageAsync extends AsyncTask<String, Void, Bitmap> {
     public IImageDisplay imageDisplayer;
 

@@ -1,3 +1,10 @@
+/*
+ Homwork 4
+ TriviaActivity
+ Akarsh Gupta     - 800969888
+ Ahmet Gencoglu   - 800982227
+*/
+
 package com.example.ahmet.homework3;
 
 import android.content.Intent;
@@ -64,7 +71,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
             startCountdown();
         } else
         {
-            Toast.makeText(this,"No Questions found in the database",Toast.LENGTH_SHORT);
+            Toast.makeText(this,getResources().getString(R.string.toastNoDatabase),Toast.LENGTH_SHORT);
         }
     }
 
@@ -100,17 +107,17 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
 
 
         Question question = questionsList.get(i);
-        textQuestionNumber.setText("Q" + Integer.toString(question.id + 1));
-        textQuestionText.setText(question.text);
+        textQuestionNumber.setText("Q" + Integer.toString(question.getId() + 1));
+        textQuestionText.setText(question.getText());
 
         choicesRadioGroup.removeAllViews();
-        for (String choice: question.choices) {
+        for (String choice: question.getChoices()) {
             addRadioButton(choice);
         }
 
-        if (question.image != null){
+        if (question.getImage() != null){
             imageRetirever = new GetImageAsync(this);
-            imageRetirever.execute(question.image);
+            imageRetirever.execute(question.getImage());
         } else {
             imageQuestionImage.setImageResource(R.drawable.question_mark);
             progressImageLoading.setVisibility(View.INVISIBLE);
@@ -163,7 +170,7 @@ public class TriviaActivity extends AppCompatActivity implements GetImageAsync.I
     public boolean checkAnswer(){
         int givenAnswer = choicesRadioGroup.indexOfChild(choicesRadioGroup.findViewById(choicesRadioGroup.getCheckedRadioButtonId())) + 1;
 
-        if (questionsList.get(currentQuestion).answer == givenAnswer) {
+        if (questionsList.get(currentQuestion).getAnswer() == givenAnswer) {
             return true;
         } else {
             return false;

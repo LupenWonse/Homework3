@@ -1,3 +1,10 @@
+/*
+ Homwork 4
+ StatsActiviy
+ Akarsh Gupta     - 800969888
+ Ahmet Gencoglu   - 800982227
+*/
+
 package com.example.ahmet.homework3;
 
 import android.content.Intent;

@@ -15,4 +15,5 @@
     <string name="buttonTryAgainLabel">Try Again</string>
     <string name="textTimeLeft">Time Left:         </string>
     <string name="textSeconds"> seconds</string>
+    <string name="toastNoDatabase">No Questions found in the database</string>
 </resources>

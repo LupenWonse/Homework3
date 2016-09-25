@@ -1,3 +1,11 @@
+/*
+ Homwork 4
+ Get Trivia Async
+ Akarsh Gupta     - 800969888
+ Ahmet Gencoglu   - 800982227
+*/
+
+
 package com.example.ahmet.homework3;
 
 import android.os.AsyncTask;
@@ -15,13 +23,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by Ahmet on 20.09.2016.
- */
+
 public class GetTriviaAsync extends AsyncTask<Void, Void, ArrayList<Question>> {
 
-    private static final String triviaUrlString =
-            "http://dev.theappsdr.com/apis/trivia_json/index.php";
+    private static final String triviaUrlString = "http://dev.theappsdr.com/apis/trivia_json/index.php";
     public TriviaMainActivity mainActivity;
 
     public GetTriviaAsync(TriviaMainActivity mainActivity) {
